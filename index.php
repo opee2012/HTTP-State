@@ -34,3 +34,5 @@ fclose($callListResouce);
 
     </body>
 </html>
+
+<!-- Read the cookie -->
