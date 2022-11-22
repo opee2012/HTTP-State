@@ -1,19 +1,23 @@
 <?php
-$callListResouce = fopen("callList.csv", "r");
+$callListResource = fopen("callList.csv", "r");
 $companies = array();
+$print = " - Visited";
 
-if(!is_resource($callListResouce))
+$visit = $_COOKIE['visit'];
+$visited = explode(",", $visit);
+
+if(!is_resource($callListResource))
 {
     echo "Could not open the file";
     exit();
 }
 
-while($line = fgets($callListResouce))
+while($line = fgets($callListResource))
 {
     $companies[] = explode(",", $line);
 }
 
-fclose($callListResouce);
+fclose($callListResource);
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +31,9 @@ fclose($callListResouce);
 <?php
     foreach($companies as $key => $value)
     {
-        echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "</a></li>";
+        echo "<li><a href='details.php?company=" . urlencode($key) . "'>" . $value[0] . "</a>";
+        if (in_array($key, $visited)) echo $print;
+        echo "</li>";
     }
 ?>
 </ul>

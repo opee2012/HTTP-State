@@ -1,22 +1,31 @@
 <?php
-$callListResouce = fopen("callList.csv", "r");
+$callListResource = fopen("callList.csv", "r");
 $companies = array();
+$visit = $_GET["company"];
 
-if(!is_resource($callListResouce))
+if (isset($_COOKIE['visit'])) {
+    $visited = explode(",", $_COOKIE['visit']);
+
+    if (!in_array($visit, $visited)) $visited[] = $visit;
+    $concat_visit = implode("%2C", $visited);
+    header("Set-Cookie: visit=" . $concat_visit);
+} else header("Set-Cookie: visit=" . $visit);
+
+if(!is_resource($callListResource))
 {
     echo "Could not open the file";
     exit();
 }
 
-while($line = fgets($callListResouce))
+while($line = fgets($callListResource))
 {
     $companies[] = explode(",", $line);
 }
 
-fclose($callListResouce);
+fclose($callListResource);
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <title>Companies</title>
 </head>
