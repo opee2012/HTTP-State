@@ -1,3 +1,8 @@
+<!--
+    CSCI 297, HTTP State, Jacob Borth, 22 November 2022
+    Outputs "Visited" each time you visit the company details.
+-->
+
 <?php
 $callListResource = fopen("callList.csv", "r");
 $companies = array();
